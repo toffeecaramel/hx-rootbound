@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="player.png">
+	<SubTexture name="idle0000" x="0" y="0" width="83" height="75" frameX="0" frameY="0" frameWidth="83" frameHeight="75" />
+	<SubTexture name="idle0001" x="0" y="0" width="83" height="75" frameX="0" frameY="0" frameWidth="83" frameHeight="75" />
+	<SubTexture name="guitar-10000" x="83" y="0" width="83" height="75" frameX="0" frameY="0" frameWidth="83" frameHeight="75" />
+	<SubTexture name="guitar-10001" x="83" y="0" width="83" height="75" frameX="0" frameY="0" frameWidth="83" frameHeight="75" />
+	<SubTexture name="guitar-10002" x="166" y="0" width="83" height="75" frameX="0" frameY="0" frameWidth="83" frameHeight="75" />
+	<SubTexture name="guitar-10003" x="166" y="0" width="83" height="75" frameX="0" frameY="0" frameWidth="83" frameHeight="75" />
+	<SubTexture name="guitar-20000" x="0" y="75" width="83" height="75" frameX="0" frameY="0" frameWidth="83" frameHeight="75" />
+	<SubTexture name="guitar-20001" x="0" y="75" width="83" height="75" frameX="0" frameY="0" frameWidth="83" frameHeight="75" />
+	<SubTexture name="guitar-20002" x="83" y="75" width="83" height="75" frameX="0" frameY="0" frameWidth="83" frameHeight="75" />
+	<SubTexture name="guitar-20003" x="83" y="75" width="83" height="75" frameX="0" frameY="0" frameWidth="83" frameHeight="75" />
+	<SubTexture name="guitar-30000" x="166" y="75" width="83" height="75" frameX="0" frameY="0" frameWidth="83" frameHeight="75" />
+	<SubTexture name="guitar-30001" x="166" y="75" width="83" height="75" frameX="0" frameY="0" frameWidth="83" frameHeight="75" />
+	<SubTexture name="guitar-30002" x="0" y="150" width="83" height="75" frameX="0" frameY="0" frameWidth="83" frameHeight="75" />
+	<SubTexture name="guitar-30003" x="0" y="150" width="83" height="75" frameX="0" frameY="0" frameWidth="83" frameHeight="75" />
+</TextureAtlas>
