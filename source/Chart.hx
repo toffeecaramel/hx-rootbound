@@ -7,6 +7,7 @@ typedef NoteData = {
     var isLeft:Bool;
     var time:Float;
     var length:Float;
+    var speed:Float;
 };
 
 typedef ChartData = {

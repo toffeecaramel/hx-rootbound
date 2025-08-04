@@ -3,22 +3,38 @@
             {
                 "time": 1000,
                 "isLeft": false,
-                "length": 0
+                "length": 0,
+                "speed": 0.1
             },
             {
                 "time": 2000,
                 "isLeft": true,
-                "length": 0
+                "length": 0,
+                "speed": 0.4
             },
             {
                 "time": 3000,
                 "isLeft": false,
-                "length": 1000
+                "length": 0,
+                "speed": 0.4
+            },
+            {
+                "time": 3000,
+                "isLeft": true,
+                "length": 0,
+                "speed": 0.4
             },
             {
                 "time": 4000,
                 "isLeft": true,
-                "length": 1000
+                "length": 1000,
+                "speed": 0.3
+            },
+            {
+                "time": 4000,
+                "isLeft": false,
+                "length": 1000,
+                "speed": 0.1
             }
         ]
     }
