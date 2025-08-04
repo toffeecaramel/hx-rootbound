@@ -1,9 +1,11 @@
 package;
 
 import flixel.FlxState;
+import flixel.FlxSprite;
 
 class PlayState extends FlxState
 {
+	var chart:Chart;
 	override public function create()
 	{
 		super.create();
@@ -16,6 +18,9 @@ class PlayState extends FlxState
 			flixel.FlxG.sound.play(AssetPaths.metronome__ogg);
 			trace('a');
 		});
+
+		chart = new Chart('aa');
+		trace(chart.notes);
 	}
 
 	override public function update(elapsed:Float)
