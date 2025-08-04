@@ -32,6 +32,7 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 
+		//TODO: Note activity/visibility when offscreen
 		for(note in pStrum.notes)
 		{
 			var timeDiff = (note.time - conductor.songPosition);

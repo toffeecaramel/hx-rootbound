@@ -31,12 +31,15 @@ class Note extends FlxSprite
         updateSustainVisual();
     }
 
-    function updateSustainVisual():Void
+    public function updateSustainVisual():Void
     {
-        final visualHeight:Int = getVisualHeight(length, speed);
-
-        if (height != visualHeight)
-            setGraphicSize(baseWidth, visualHeight);
+        final newHeight:Int = getVisualHeight(length, speed);
+        if (height != newHeight)
+        {
+            var oldBottom = y + height;
+            setGraphicSize(baseWidth, newHeight);
+            y = oldBottom - height;
+        }
     }
 
     function getVisualHeight(length:Float, speed:Float):Int

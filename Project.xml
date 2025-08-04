@@ -35,7 +35,7 @@
 
 	<source path="source" />
 	<assets path="assets" />
-	<assets path="assets/data" rename="data" include="*.json" />
+	<assets path="assets/data" rename="assets/data" include="*.json" />
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
