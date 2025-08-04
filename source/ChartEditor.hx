@@ -95,9 +95,8 @@ class ChartEditor extends FlxState
             conductor.reset(newTime);
         }
         
-        var snapMs = conductor.crochet / snapDivisions[currentSnapIndex];
-        var snappedTime = Math.round(conductor.songPosition / snapMs) * snapMs;
-
+        var snappedTime = snapTime(conductor.songPosition);
+                
         if (FlxG.keys.justPressed.A) {
             previewLane = true;        
             placeNote(true, snappedTime);
@@ -194,5 +193,10 @@ class ChartEditor extends FlxState
     {
         var offset = strumTime - conductor.songPosition;
         return 300 - (offset * 0.2);
+    }
+
+    function snapTime(time:Float):Float {
+        var snapMs = conductor.crochet / snapDivisions[currentSnapIndex];
+        return Std.int((time + 0.01) / snapMs) * snapMs;
     }
 }

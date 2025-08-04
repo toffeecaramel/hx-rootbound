@@ -13,6 +13,8 @@ class Note extends FlxSprite
     var baseWidth:Int = 64;
     var baseHeight:Int = 64;
 
+    public var gotHit:Bool = false;
+
     public function new(x:Float, y:Float, time:Float, isLeft:Bool, length:Float)
     {
         this.isLeft = isLeft;
@@ -29,23 +31,41 @@ class Note extends FlxSprite
     {
         super.update(elapsed);
         updateSustainVisual();
+
     }
+    public var heldTime:Float = 0;
 
     public function updateSustainVisual():Void
     {
-        final newHeight:Int = getVisualHeight(length, speed);
-        if (height != newHeight)
+        if (length <= 0) return;
+
+        var remainingLength = Math.max(0, length - heldTime);
+        var visualHeight:Int = getVisualHeight(remainingLength);
+        var newGraphicHeight = Std.int(visualHeight / scale.y);
+
+        if (height != newGraphicHeight)
         {
-            var oldBottom = y + height;
-            setGraphicSize(baseWidth, newHeight);
-            y = oldBottom - height;
+            var oldBottom = y + height * scale.y;
+            makeGraphic(baseWidth, newGraphicHeight, FlxColor.WHITE);
+            y = oldBottom - height * scale.y;
         }
     }
-
-    function getVisualHeight(length:Float, speed:Float):Int
+    
+    function getVisualHeight(length:Float):Int
     {
-        // thingy: how many pixels per millisecond * speed
-        var pixelsPerMs = 0.2;
-        return (length > 0) ? Std.int(baseHeight + (length * speed * pixelsPerMs)) : baseHeight;
+        var pixelsPerMs = 0.4;
+        return (length > 0) ? Std.int(length * pixelsPerMs) : baseHeight;
+    }
+}
+
+class HeldNote
+{
+    public var note:Note;
+    public var startHeldTime:Float;
+
+    public function new(note:Note, startTime:Float)
+    {
+        this.note = note;
+        this.startHeldTime = startTime;
     }
 }
