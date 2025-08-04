@@ -38,7 +38,8 @@ class PlayState extends FlxState
 			var timeDiff = (note.time - conductor.songPosition);
 
 			// 0 is where the receptor.y will be.!
-			note.y = 0 + timeDiff * note.speed;
+			note.y = ((note.isLeft) ? pStrum.leftStrum.y : pStrum.rightStrum.y) + timeDiff * note.speed;
+			note.x = (note.isLeft) ? pStrum.leftStrum.x : pStrum.rightStrum.x;
 		}
 	}
 }
