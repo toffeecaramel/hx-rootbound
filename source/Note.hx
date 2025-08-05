@@ -14,6 +14,7 @@ class Note extends FlxSprite
     var baseHeight:Int = 64;
 
     public var gotHit:Bool = false;
+    public var hitJudgement:String = '';
 
     public function new(x:Float, y:Float, time:Float, isLeft:Bool, length:Float)
     {

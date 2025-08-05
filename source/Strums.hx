@@ -13,6 +13,8 @@ class Strums extends FlxGroup
 
     public var leftStrum:FlxSprite = new FlxSprite().loadGraphic(AssetPaths.strum__png);
     public var rightStrum:FlxSprite = new FlxSprite().loadGraphic(AssetPaths.strum__png);
+    public var lCopy:FlxSprite = new FlxSprite().loadGraphic(AssetPaths.strum__png);
+    public var rCopy:FlxSprite = new FlxSprite().loadGraphic(AssetPaths.strum__png);
 
     public var lGlow:FlxSprite = new FlxSprite().loadGraphic(AssetPaths.strumGlow__png);
     public var rGlow:FlxSprite = new FlxSprite().loadGraphic(AssetPaths.strumGlow__png);
@@ -24,9 +26,14 @@ class Strums extends FlxGroup
         add(leftStrum);
         add(rightStrum);
 
-        lGlow.blend = rGlow.blend = ADD;
+        lGlow.blend = rGlow.blend = lCopy.blend = rCopy.blend = ADD;
         add(lGlow);
         add(rGlow);
+
+        add(lCopy);
+        add(rCopy);
+
+        lCopy.alpha = rCopy.alpha = 0.0001;
         rGlow.alpha = lGlow.alpha = 0.0001;
 
         leftStrum.x = 64; 
@@ -47,9 +54,16 @@ class Strums extends FlxGroup
         final ry = rightStrum.y + rightStrum.height / 2;
 
         rGlow.setPosition(rx - rGlow.width / 2, ry - lGlow.height / 2);
+        lCopy.setPosition(lx - lCopy.width / 2, ly - lCopy.height / 2);
+        rCopy.setPosition(rx - rCopy.width / 2, ry - rCopy.height / 2);
 
-        lGlow.scale.x = lGlow.scale.y = FlxMath.lerp(lGlow.scale.x, 1, elapsed * 8);
-        rGlow.scale.x = rGlow.scale.y = FlxMath.lerp(rGlow.scale.x, 1, elapsed * 8);
+        lGlow.scale.x = lGlow.scale.y = FlxMath.lerp(lGlow.scale.x, 0.8, elapsed * 7);
+        rGlow.scale.x = rGlow.scale.y = FlxMath.lerp(rGlow.scale.x, 0.8, elapsed * 7);
+
+        lCopy.scale.x = lCopy.scale.y = FlxMath.lerp(lCopy.scale.x, 2.2, elapsed * 9);
+        rCopy.scale.x = rCopy.scale.y = FlxMath.lerp(rCopy.scale.x, 2.2, elapsed * 9);
+        lCopy.alpha = FlxMath.lerp(lCopy.alpha, 0.0001, elapsed * 6);
+        rCopy.alpha = FlxMath.lerp(rCopy.alpha, 0.0001, elapsed * 6);
 
         rGlow.alpha = FlxMath.lerp(rGlow.alpha, 0.0001, elapsed * 6);
         lGlow.alpha = FlxMath.lerp(lGlow.alpha, 0.0001, elapsed * 6);
