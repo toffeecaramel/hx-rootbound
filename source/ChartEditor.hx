@@ -34,16 +34,17 @@ class ChartEditor extends FlxState
     var previewNote:Note;
     var previewLane:Bool = true;
 
-    final level:String = 'testLevel';
+    final level:String = 'level-one';
 
     override public function create():Void
     {
         super.create();
 
-        conductor = new Conductor(135);
+        chart = new Chart(level);
+
+        conductor = new Conductor(chart.chartData.bpm);
         add(conductor);
 
-        chart = new Chart(level);
         notes = new FlxGroup();
         add(notes);
 
@@ -53,7 +54,7 @@ class ChartEditor extends FlxState
             notes.add(note);
         }
 
-        var hitLine = new FlxSprite(0, 300).makeGraphic(FlxG.width, 2, FlxColor.RED);
+        var hitLine = new FlxSprite(0, 350).makeGraphic(FlxG.width, 2, FlxColor.RED);
         add(hitLine);
 
         previewNote = new Note(0, 0, 0, true, 0);
@@ -64,7 +65,7 @@ class ChartEditor extends FlxState
         holdLine.visible = false;
         add(holdLine);
 
-        FlxG.sound.playMusic(AssetPaths.Inst_erect__ogg);
+        FlxG.sound.playMusic(AssetPaths.level_one__ogg);
     }
 
     override public function update(elapsed:Float):Void
@@ -76,19 +77,23 @@ class ChartEditor extends FlxState
             var n = cast(note, Note);
             n.scale.set(0.7, 0.7);
             n.y = getNoteY(n.time);
+
+            var timeDiff = n.time - conductor.songPosition;
+
+            if(n != previewNote) n.alpha = (timeDiff < 0) ? 0.5 : 1;
         }
         
         if (FlxG.keys.justPressed.SPACE)
             (FlxG.sound.music.playing) ? FlxG.sound.music.pause() : FlxG.sound.music.play();
 
         var step:Float = 800; // milliseconds
-        if (FlxG.keys.justPressed.LEFT)
+        if (FlxG.keys.justPressed.A)
         {
             var newTime = Math.max(FlxG.sound.music.time - step, 0);
             FlxG.sound.music.time = newTime;
             conductor.reset(newTime);
         }
-        if (FlxG.keys.justPressed.RIGHT)
+        if (FlxG.keys.justPressed.D)
         {
             var newTime = Math.min(FlxG.sound.music.time + step, FlxG.sound.music.length);
             FlxG.sound.music.time = newTime;
@@ -97,11 +102,11 @@ class ChartEditor extends FlxState
         
         var snappedTime = snapTime(conductor.songPosition);
                 
-        if (FlxG.keys.justPressed.A) {
+        if (FlxG.keys.justPressed.LEFT) {
             previewLane = true;        
             placeNote(true, snappedTime);
         }
-        if (FlxG.keys.justPressed.D) {
+        if (FlxG.keys.justPressed.RIGHT) {
             previewLane = false;
             placeNote(false, snappedTime);
         }

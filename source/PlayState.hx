@@ -17,24 +17,28 @@ class PlayState extends FlxState
 	    {name: "ok", window: 90},
 	    {name: "bad", window: 160}
 	];
+
 	override public function create()
 	{
 		super.create();
 
-		flixel.FlxG.sound.playMusic(AssetPaths.Inst_erect__ogg);
-		conductor = new Conductor(135);
+		chart = new Chart('level-one');
+
+		trace(chart.chartData.bpm);
+		conductor = new Conductor(chart.chartData.bpm);
 		add(conductor);
 
 		conductor.onBeatHit.add(() -> {
-			flixel.FlxG.sound.play(AssetPaths.metronome__ogg);
+			//flixel.FlxG.sound.play(AssetPaths.metronome__ogg);
 			//trace('a');
 		});
 
-		chart = new Chart('aa');
 		//trace(chart.notes);
 
 		pStrum = new Strums(chart.notes);
 		add(pStrum);
+
+		flixel.FlxG.sound.playMusic(AssetPaths.level_one__ogg);
 	}
 
 	var heldNotes:Array<HeldNote> = [];
@@ -49,6 +53,7 @@ class PlayState extends FlxState
 			var timeDiff = (note.time - conductor.songPosition);
 			note.y = (!note.gotHit) ? (((note.isLeft) ? pStrum.leftStrum.y : pStrum.rightStrum.y) + timeDiff * note.speed) : ((note.isLeft) ? pStrum.leftStrum.y : pStrum.rightStrum.y);
 			note.x = (note.isLeft) ? pStrum.leftStrum.x : pStrum.rightStrum.x;
+			note.visible = note.active = note.isOnScreen();
 		}
 
 		if (leftKeyPressed())
@@ -132,9 +137,12 @@ class PlayState extends FlxState
 	    }
 	}
 
-	function missNote():Void
+	function missNote(note:Note = null):Void
 	{
 	    trace('Missed!');
+
+	    if(note != null && note.alpha > 0.3)
+	    	note.alpha = 0.3;
 	}
 
 	function leftKeyPressed():Bool
