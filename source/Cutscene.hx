@@ -23,7 +23,7 @@ class Cutscene extends FlxState
 
 	var cutsceneIdx:Int = 0;
 	var canPress:Bool = false;
-
+	var a:FlxSprite;
 	override public function create()
 	{
 		cHUD.bgColor = 0x00000000;
@@ -49,13 +49,12 @@ class Cutscene extends FlxState
 		// didnt work :/
 		// FlxG.camera.fade(FlxColor.BLACK, 3, true, () -> proceed());
 		// soo an alternative we go...!
-		var a = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		a = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(a);
 		a.camera = cHUD;
 		FlxTween.tween(a, {alpha: 0}, 3, {
 			onComplete: (_) ->
 			{
-				a.destroy();
 				proceed();
 			}
 		});
@@ -82,6 +81,7 @@ class Cutscene extends FlxState
 		}
 	}
 
+	var player:Player;
 	function proceed()
 	{
 		switch (cutsceneIdx)
@@ -152,12 +152,48 @@ class Cutscene extends FlxState
 								camTween.cancel();
 							cGAME.zoom = 1.35;
 
-							var player = new Player(870, 235);
+							player = new Player(870, 235);
 							player.animation.play('sleep', true);
 							player.float = false;
 							add(player);
-							t = '...';
+							FlxG.sound.play(AssetPaths.pop__ogg);
+							text.color = FlxColor.LIME;
+							//t = '...';
+							new FlxTimer().start(2, (_) -> {
+								cutsceneIdx++;
+								proceed(); //just to shorten this bigass switch
+							});
 						}
+					});
+				});
+			case 11:
+				cGAME.zoom = 1.40;
+				FlxG.sound.play(AssetPaths.suspense_one__ogg);
+				player.animation.play('wingsgrow');
+				new FlxTimer().start(1.2, (_) -> {
+					player.animation.play('notice');
+					cGAME.zoom = 1.45;
+					FlxG.sound.play(AssetPaths.suspense_two__ogg);
+					new FlxTimer().start(0.9, (_) -> FlxG.sound.play(AssetPaths.suspense_three__ogg));
+					new FlxTimer().start(1.5, (_) -> {
+						player.animation.play('fly');
+						FlxG.sound.play(AssetPaths.fall__ogg);
+						FlxTween.tween(player, {y:550, angle: -40}, 0.85, {ease: FlxEase.circIn, startDelay: 0.1});
+						FlxTween.tween(cGAME, {zoom: 1.1}, 0.85, {ease: FlxEase.circIn, startDelay: 0.1, onComplete: (_)->{
+							FlxG.sound.play(AssetPaths.ground_hit__ogg);
+							cGAME.shake(0.04, 0.1);
+
+							new FlxTimer().start(1.4, (_)->{
+								FlxG.sound.play(AssetPaths.pop__ogg);
+								t = 'That hurts...';
+								FlxTween.tween(a, {alpha: 1}, 2, {
+									startDelay: 1, onComplete: (_) ->
+									{
+										//todo
+									}
+								});
+							});
+						}});
 					});
 				});
 		}

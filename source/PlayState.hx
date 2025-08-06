@@ -23,7 +23,7 @@ class PlayState extends FlxState
 	var cGAME:FlxCamera = new FlxCamera();
 
 	var judgementList:Array<{name:String, window:Int}> = [
-		{name: "perfect", window: 20},
+		{name: "perfect", window: 30},
 	    {name: "awesome", window: 50},
 	    {name: "ok", window: 120},
 	    {name: "bad", window: 199}
@@ -57,6 +57,47 @@ class PlayState extends FlxState
 		conductor.onBeatHit.add(() -> {
 			//flixel.FlxG.sound.play(AssetPaths.metronome__ogg);
 			//trace('a');
+			var b = conductor.curBeat;
+
+			switch(nextLevel){
+				case 'level-one':
+				trace(b);
+
+				if(b >= 32 && b <= 64)
+					cHUD.zoom += 0.02;
+				if(b >= 100 && b <= 164)
+				{
+					cHUD.zoom += 0.02;
+				}
+
+				switch(b)
+				{
+					case 32:
+						FlxTween.tween(cGAME, {zoom: 1.2}, 2, {ease: FlxEase.circOut});
+						lumora.speed = 5;
+
+					case 64:
+						lumora.animation.play('sad', true);
+						FlxTween.tween(this, {bgScroll: 0}, 5, {ease: FlxEase.quadIn});
+						FlxTween.tween(cGAME, {zoom: 1.5, "scroll.y": cGAME.scroll.y + 32}, 1.6, {ease: FlxEase.circOut, startDelay: 0.2});
+						lumora.speed = 1;
+						lumora.amplitude = 3;
+						FlxTween.tween(lumora, {y: lumora.y + 16}, 1, {ease: FlxEase.quadInOut});
+					case 85: lumora.animation.play('unhappy');
+					case 96:
+						FlxTween.tween(lumora, {y: lumora.y - 16}, 1, {ease: FlxEase.backOut});
+					    lumora.animation.play('happy');
+					    lumora.speed = 4;
+						lumora.amplitude = 6;
+						FlxTween.tween(cGAME, {zoom: 1, "scroll.y": cGAME.scroll.y - 32}, 1.8, {ease: FlxEase.circIn, startDelay: 0.2});
+						FlxTween.tween(this, {bgScroll: 700}, 3, {ease: FlxEase.quadIn});
+					case 164: cHUD.visible = false;
+					FlxTween.tween(cGAME, {"scroll.y": -100}, 10, {ease: FlxEase.quadInOut});
+					FlxTween.tween(lumora, {y: 800}, 6, {ease: FlxEase.circIn, startDelay: 2});
+					lumora.animation.play('happier');
+					case 198: //fade to black lol
+				}
+			}
 		});
 
 		//trace(chart.notes);
@@ -69,8 +110,9 @@ class PlayState extends FlxState
 
 		lumora.screenCenter();
 		lumora.scrollFactor.set(0, 0);
+		//lumora.y += 100;
 		add(lumora);
-		add(lumora.glow);
+		//add(lumora.glow); todo
 		lumora.animation.play('unhappy');
 
 		stats.setFormat(AssetPaths.Karma_Future__otf, 32, CENTER);
@@ -92,12 +134,13 @@ class PlayState extends FlxState
 
 	var ltwn:FlxTween;
 	var rtwn:FlxTween;
+	var bgScroll:Float = 900;
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
-		cGAME.scroll.x += elapsed * 1000;
+		cGAME.scroll.x += elapsed * bgScroll;
+		cHUD.zoom = flixel.math.FlxMath.lerp(cHUD.zoom, 0.975, elapsed * 9);
 
-		//TODO: Note activity/visibility when offscreen
 		for(note in pStrum.notes)
 		{
 			var timeDiff = (note.time - conductor.songPosition);

@@ -17,8 +17,8 @@ class Conductor extends FlxBasic
     public var onBeatHit:FlxSignal = new FlxSignal();
     public var onStepHit:FlxSignal = new FlxSignal();
 
-    private var curBeat:Int = 0;
-    private var curStep:Int = 0;
+    public var curBeat:Int = 0;
+    public var curStep:Int = 0;
 
     public function new(bpm:Float = 120)
     {

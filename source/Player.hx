@@ -10,7 +10,7 @@ class Player extends FlxSprite
     {
         super(x, y);
         loadGraphic(AssetPaths.playerv2__png, true, 84, 53);
-        final framerate = 10;
+        final framerate = 7;
         animation.add('sad', [0], framerate, true);
         animation.add('unhappy', [1], framerate, true);
         animation.add('happy', [2], framerate, true);
@@ -18,8 +18,9 @@ class Player extends FlxSprite
         animation.add('purify', [4, 5, 6], framerate, false);
         animation.add('miss', [7], framerate, false);
         animation.add('sleep', [8, 9], framerate, true);
-        animation.add('wake', [10, 11, 12, 13, 13, 13, 13, 13, 14, 15, 16, 17], framerate, false);
-        animation.add('fly', [18, 19, 20], framerate, false);
+        animation.add('wingsgrow', [10, 11, 12, 13], framerate, false);
+        animation.add('notice', [14, 15, 16, 17], framerate, false);
+        animation.add('fly', [18, 19, 20], 10, true);
         animation.add('phew', [21], framerate, false);
 
         glow = new FlxSprite(x, y);
@@ -32,6 +33,8 @@ class Player extends FlxSprite
     }
 
     var floatTimer:Float = 0; //unintentional pun xD
+    public var amplitude:Float = 11;
+    public var speed:Float = 6;
     override public function update(elapsed:Float)
     {
         super.update(elapsed);
@@ -52,7 +55,7 @@ class Player extends FlxSprite
             floatTimer += elapsed;
             
             // note, speed is the firstvalue and the amplitude is the second valuee
-            offset.y = Math.sin(floatTimer * 10) * 15;
+            offset.y = Math.sin(floatTimer * speed) * amplitude;
         }
     }
 }
