@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="tree.png">
+	<SubTexture name="loop0000" x="0" y="0" width="677" height="603" frameX="-10" frameY="0" frameWidth="687" frameHeight="606" />
+	<SubTexture name="loop0001" x="0" y="0" width="677" height="603" frameX="-10" frameY="0" frameWidth="687" frameHeight="606" />
+	<SubTexture name="loop0002" x="677" y="0" width="677" height="603" frameX="-10" frameY="0" frameWidth="687" frameHeight="606" />
+	<SubTexture name="loop0003" x="677" y="0" width="677" height="603" frameX="-10" frameY="0" frameWidth="687" frameHeight="606" />
+	<SubTexture name="loop0004" x="1354" y="0" width="677" height="603" frameX="-10" frameY="0" frameWidth="687" frameHeight="606" />
+	<SubTexture name="loop0005" x="1354" y="0" width="677" height="603" frameX="-10" frameY="0" frameWidth="687" frameHeight="606" />
+	<SubTexture name="loop0006" x="0" y="603" width="677" height="603" frameX="-10" frameY="0" frameWidth="687" frameHeight="606" />
+	<SubTexture name="loop0007" x="0" y="603" width="677" height="603" frameX="-10" frameY="0" frameWidth="687" frameHeight="606" />
+	<SubTexture name="loop-without0000" x="677" y="603" width="677" height="603" frameX="-10" frameY="0" frameWidth="687" frameHeight="606" />
+	<SubTexture name="loop-without0001" x="677" y="603" width="677" height="603" frameX="-10" frameY="0" frameWidth="687" frameHeight="606" />
+	<SubTexture name="loop-without0002" x="1354" y="603" width="677" height="603" frameX="-10" frameY="0" frameWidth="687" frameHeight="606" />
+	<SubTexture name="loop-without0003" x="1354" y="603" width="677" height="603" frameX="-10" frameY="0" frameWidth="687" frameHeight="606" />
+	<SubTexture name="loop-without0004" x="0" y="1206" width="677" height="603" frameX="-10" frameY="0" frameWidth="687" frameHeight="606" />
+	<SubTexture name="loop-without0005" x="0" y="1206" width="677" height="603" frameX="-10" frameY="0" frameWidth="687" frameHeight="606" />
+	<SubTexture name="loop-without0006" x="677" y="1206" width="677" height="603" frameX="-10" frameY="0" frameWidth="687" frameHeight="606" />
+	<SubTexture name="loop-without0007" x="677" y="1206" width="677" height="603" frameX="-10" frameY="0" frameWidth="687" frameHeight="606" />
+</TextureAtlas>
