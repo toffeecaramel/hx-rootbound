@@ -5,6 +5,7 @@ import flixel.FlxState;
 import flixel.FlxSprite;
 import flixel.util.FlxColor;
 import flixel.text.FlxText;
+import flixel.FlxCamera;
 import Note.HeldNote;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
@@ -15,6 +16,10 @@ class PlayState extends FlxState
 	var pStrum:Strums;
 	var conductor:Conductor;
 	var stats:FlxText = new FlxText();
+	var bg:BG;
+
+	var cHUD:FlxCamera = new FlxCamera();
+	var cGAME:FlxCamera = new FlxCamera();
 
 	var judgementList:Array<{name:String, window:Int}> = [
 		{name: "perfect", window: 20},
@@ -31,14 +36,20 @@ class PlayState extends FlxState
 	];
 
 	public var combo:Int = 0;
+	public static var nextLevel = 'level-one';
 
 	override public function create()
 	{
 		super.create();
 
-		chart = new Chart('level-one');
+		cHUD.bgColor = 0x00000000;
+		cGAME.bgColor = 0x00000000;
+		FlxG.cameras.add(cGAME, true);
+		FlxG.cameras.add(cHUD, false);
 
-		trace(chart.chartData.bpm);
+		chart = new Chart(nextLevel);
+
+		//trace(chart.chartData.bpm);
 		conductor = new Conductor(chart.chartData.bpm);
 		add(conductor);
 
@@ -49,17 +60,25 @@ class PlayState extends FlxState
 
 		//trace(chart.notes);
 
+		////////////////////////////////////////////
+		bg = new BG(chart.chartData.bg);
+		add(bg);
+		cGAME.scroll.x = bg.cameraSpawn.x;
+		cGAME.scroll.y = bg.cameraSpawn.y;
+
 		stats.setFormat(AssetPaths.Karma_Future__otf, 32, CENTER);
 		stats.text ='';
 		stats.origin.y = stats.height;
 		stats.textField.antiAliasType = ADVANCED;
 		stats.textField.sharpness = 200;
+		stats.camera = cHUD;
 		add(stats);
 
 		pStrum = new Strums(chart.notes);
+		pStrum.camera = cHUD;
 		add(pStrum);
 
-		flixel.FlxG.sound.playMusic(AssetPaths.level_one__ogg);
+		flixel.FlxG.sound.playMusic(getLevelSong());
 	}
 
 	var heldNotes:Array<HeldNote> = [];
@@ -69,6 +88,7 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
+		cGAME.scroll.x += elapsed * 400;
 
 		//TODO: Note activity/visibility when offscreen
 		for(note in pStrum.notes)
@@ -283,4 +303,12 @@ class PlayState extends FlxState
 
 	function rightKeyDown():Bool
 	    return FlxG.keys.pressed.D || FlxG.keys.pressed.RIGHT || FlxG.keys.pressed.X || FlxG.keys.pressed.L || FlxG.keys.pressed.E;
+
+	function getLevelSong()
+	{
+		switch(nextLevel)
+		{
+			default: return AssetPaths.level_one__ogg;
+		}
+	}
 }

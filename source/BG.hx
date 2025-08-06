@@ -12,6 +12,7 @@ class BG extends FlxGroup
 	public var objects:Map<String, FlxSprite> = [];
 	public var bg:String = '';
 	public var playerSpawn:FlxPoint;
+	public var cameraSpawn:FlxPoint;
 	public function new(bg:String)
 	{
 		super();
@@ -50,6 +51,8 @@ class BG extends FlxGroup
 				ground.y = 500;
 				add(ground);
 				objects.set('ground', ground);
+
+				cameraSpawn = FlxPoint.get(100, 170);
 		}
 	}
 

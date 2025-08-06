@@ -11,6 +11,7 @@ typedef NoteData = {
 };
 
 typedef ChartData = {
+    var bg:String;
     var notes:Array<NoteData>;
     var bpm:Float;
 }
