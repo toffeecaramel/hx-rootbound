@@ -143,6 +143,10 @@ class PlayState extends FlxState
 		        }
 		    }
 		}
+
+		// TODO: see if its pausing correctly (can't do it right nyaw since im in school!!)
+		if(FlxG.keys.justPressed.ESCAPE||FlxG.keys.justPressed.ENTER||FlxG.keys.justPressed.BACKSPACE)
+			openSubState(new Pause());
 	}
 
 	function checkHit(isLeft:Bool):Void
@@ -263,20 +267,20 @@ class PlayState extends FlxState
 	}
 
 	function leftKeyReleased():Bool
-    	return FlxG.keys.justReleased.A || FlxG.keys.justReleased.LEFT || FlxG.keys.justReleased.Z || FlxG.keys.justReleased.K;
+    	return FlxG.keys.justReleased.A || FlxG.keys.justReleased.LEFT || FlxG.keys.justReleased.Z || FlxG.keys.justReleased.K || FlxG.keys.justReleased.Q;
 
 	function rightKeyReleased():Bool
-	    return FlxG.keys.justReleased.D || FlxG.keys.justReleased.RIGHT || FlxG.keys.justReleased.X || FlxG.keys.justReleased.L;
+	    return FlxG.keys.justReleased.D || FlxG.keys.justReleased.RIGHT || FlxG.keys.justReleased.X || FlxG.keys.justReleased.L || FlxG.keys.justReleased.E;
 
 	function leftKeyPressed():Bool
-	    return FlxG.keys.justPressed.A || FlxG.keys.justPressed.LEFT || FlxG.keys.justPressed.Z || FlxG.keys.justPressed.K;
+	    return FlxG.keys.justPressed.A || FlxG.keys.justPressed.LEFT || FlxG.keys.justPressed.Z || FlxG.keys.justPressed.K || FlxG.keys.justPressed.Q;
 
 	function rightKeyPressed():Bool
-	    return FlxG.keys.justPressed.D || FlxG.keys.justPressed.RIGHT || FlxG.keys.justPressed.X || FlxG.keys.justPressed.L;
+	    return FlxG.keys.justPressed.D || FlxG.keys.justPressed.RIGHT || FlxG.keys.justPressed.X || FlxG.keys.justPressed.L || FlxG.keys.justPressed.E;
 
 	function leftKeyDown():Bool
-	    return FlxG.keys.pressed.A || FlxG.keys.pressed.LEFT || FlxG.keys.pressed.Z || FlxG.keys.pressed.K;
+	    return FlxG.keys.pressed.A || FlxG.keys.pressed.LEFT || FlxG.keys.pressed.Z || FlxG.keys.pressed.K || FlxG.keys.pressed.Q;
 
 	function rightKeyDown():Bool
-	    return FlxG.keys.pressed.D || FlxG.keys.pressed.RIGHT || FlxG.keys.pressed.X || FlxG.keys.pressed.L;
+	    return FlxG.keys.pressed.D || FlxG.keys.pressed.RIGHT || FlxG.keys.pressed.X || FlxG.keys.pressed.L || FlxG.keys.pressed.E;
 }
