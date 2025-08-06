@@ -5,12 +5,12 @@ import flixel.FlxSprite;
 class Player extends FlxSprite
 {
     public var glow:FlxSprite;
-
+    public var float:Bool = true;
     public function new(x:Float = 0, y:Float = 0)
     {
         super(x, y);
         loadGraphic(AssetPaths.playerv2__png, true, 84, 53);
-        final framerate = 14;
+        final framerate = 10;
         animation.add('sad', [0], framerate, true);
         animation.add('unhappy', [1], framerate, true);
         animation.add('happy', [2], framerate, true);
@@ -47,9 +47,12 @@ class Player extends FlxSprite
         glow.alpha = 0.4 + Math.sin(floatTimer * 2) * 0.2;
         glow.camera = this.camera;
 
-        floatTimer += elapsed;
-        
-        // note, speed is the firstvalue and the amplitude is the second valuee
-        offset.y = Math.sin(floatTimer * 10) * 15;
+        if(float)
+        {
+            floatTimer += elapsed;
+            
+            // note, speed is the firstvalue and the amplitude is the second valuee
+            offset.y = Math.sin(floatTimer * 10) * 15;
+        }
     }
 }

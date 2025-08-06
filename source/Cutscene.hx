@@ -131,11 +131,12 @@ class Cutscene extends FlxState
 				t = 'Will this world finally see\nitself shine again?';
 			case 10:
 				canPress = false;
+				FlxTween.tween(text, {alpha: 0.0001}, 0.4);
 				var camTween = FlxTween.tween(cGAME, {zoom: 2}, 3.48, {ease: FlxEase.sineIn});
 				new FlxTimer().start(1, (_) ->
 				{
 					var b = new FlxSprite(835, 145).loadGraphic(AssetPaths.reveal__png);
-					b.scale.set(0.8, 0.8);
+					//b.scale.set(0.8, 0.8);
 					add(b);
 					b.blend = ADD;
 					b.alpha = 0.0001;
@@ -150,6 +151,12 @@ class Cutscene extends FlxState
 							if (camTween != null && camTween.active)
 								camTween.cancel();
 							cGAME.zoom = 1.35;
+
+							var player = new Player(870, 235);
+							player.animation.play('sleep', true);
+							player.float = false;
+							add(player);
+							t = '...';
 						}
 					});
 				});
