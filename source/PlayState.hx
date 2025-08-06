@@ -17,6 +17,7 @@ class PlayState extends FlxState
 	var conductor:Conductor;
 	var stats:FlxText = new FlxText();
 	var bg:BG;
+	var lumora:Player = new Player();
 
 	var cHUD:FlxCamera = new FlxCamera();
 	var cGAME:FlxCamera = new FlxCamera();
@@ -66,6 +67,12 @@ class PlayState extends FlxState
 		cGAME.scroll.x = bg.cameraSpawn.x;
 		cGAME.scroll.y = bg.cameraSpawn.y;
 
+		lumora.screenCenter();
+		lumora.scrollFactor.set(0, 0);
+		add(lumora);
+		add(lumora.glow);
+		lumora.animation.play('unhappy');
+
 		stats.setFormat(AssetPaths.Karma_Future__otf, 32, CENTER);
 		stats.text ='';
 		stats.origin.y = stats.height;
@@ -88,7 +95,7 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
-		cGAME.scroll.x += elapsed * 400;
+		cGAME.scroll.x += elapsed * 1000;
 
 		//TODO: Note activity/visibility when offscreen
 		for(note in pStrum.notes)
