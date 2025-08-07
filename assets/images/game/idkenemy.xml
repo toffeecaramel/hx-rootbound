@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="idkenemy.png">
+	<SubTexture name="walkcycle0000" x="0" y="0" width="123" height="99" frameX="-1" frameY="-5" frameWidth="126" frameHeight="108" />
+	<SubTexture name="walkcycle0001" x="0" y="0" width="123" height="99" frameX="-1" frameY="-5" frameWidth="126" frameHeight="108" />
+	<SubTexture name="walkcycle0002" x="123" y="0" width="123" height="99" frameX="-1" frameY="-5" frameWidth="126" frameHeight="108" />
+	<SubTexture name="walkcycle0003" x="123" y="0" width="123" height="99" frameX="-1" frameY="-5" frameWidth="126" frameHeight="108" />
+	<SubTexture name="walkcycle0004" x="246" y="0" width="123" height="99" frameX="-1" frameY="-5" frameWidth="126" frameHeight="108" />
+	<SubTexture name="walkcycle0005" x="246" y="0" width="123" height="99" frameX="-1" frameY="-5" frameWidth="126" frameHeight="108" />
+	<SubTexture name="walkcycle0006" x="0" y="99" width="123" height="99" frameX="-1" frameY="-5" frameWidth="126" frameHeight="108" />
+	<SubTexture name="walkcycle0007" x="0" y="99" width="123" height="99" frameX="-1" frameY="-5" frameWidth="126" frameHeight="108" />
+	<SubTexture name="transform0000" x="123" y="99" width="123" height="99" frameX="-1" frameY="-5" frameWidth="126" frameHeight="108" />
+	<SubTexture name="transform0001" x="123" y="99" width="123" height="99" frameX="-1" frameY="-5" frameWidth="126" frameHeight="108" />
+	<SubTexture name="transform0002" x="246" y="99" width="123" height="99" frameX="-1" frameY="-5" frameWidth="126" frameHeight="108" />
+	<SubTexture name="transform0003" x="246" y="99" width="123" height="99" frameX="-1" frameY="-5" frameWidth="126" frameHeight="108" />
+	<SubTexture name="transform0004" x="0" y="198" width="123" height="99" frameX="-1" frameY="-5" frameWidth="126" frameHeight="108" />
+	<SubTexture name="transform0005" x="0" y="198" width="123" height="99" frameX="-1" frameY="-5" frameWidth="126" frameHeight="108" />
+	<SubTexture name="transform0006" x="123" y="198" width="123" height="99" frameX="-1" frameY="-5" frameWidth="126" frameHeight="108" />
+	<SubTexture name="transform0007" x="123" y="198" width="123" height="99" frameX="-1" frameY="-5" frameWidth="126" frameHeight="108" />
+</TextureAtlas>

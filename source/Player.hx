@@ -1,35 +1,32 @@
 package;
 
 import flixel.FlxSprite;
+import flixel.graphics.frames.FlxAtlasFrames;
 
 class Player extends FlxSprite
 {
-    public var glow:FlxSprite;
     public var float:Bool = true;
     public function new(x:Float = 0, y:Float = 0)
     {
         super(x, y);
-        loadGraphic(AssetPaths.playerv2__png, true, 84, 53);
-        final framerate = 7;
-        animation.add('sad', [0], framerate, true);
-        animation.add('unhappy', [1], framerate, true);
-        animation.add('happy', [2], framerate, true);
-        animation.add('happier', [3], framerate, true);
-        animation.add('purify', [4, 5, 6], framerate, false);
-        animation.add('miss', [7], framerate, false);
-        animation.add('sleep', [8, 9], framerate, true);
-        animation.add('wingsgrow', [10, 11, 12, 13], framerate, false);
-        animation.add('notice', [14, 15, 16, 17], framerate, false);
-        animation.add('fly', [18, 19, 20], 10, true);
-        animation.add('phew', [21], framerate, false);
-
-        glow = new FlxSprite(x, y);
-        // todo: glow have its own graphic.
-        glow.loadGraphic(AssetPaths.playerv2__png, true, 84, 53);
-        glow.setGraphicSize(Std.int(width * 1.2), Std.int(height * 1.2));
-        glow.color = 0xFF4FFFC4;
-        glow.alpha = 0.5;
-        glow.blend = ADD;
+        frames = FlxAtlasFrames.fromSparrow(AssetPaths.playerv2__png, AssetPaths.playerv2__xml);
+        animation.addByPrefix('sad', 'idle-sad', 24, true);
+        animation.addByPrefix('unhappy', 'idle-unhappy0', 24, true);
+        animation.addByPrefix('happy', 'idle-happy0', 24, true);
+        animation.addByPrefix('happier', 'idle-happier0', 24, true);
+        animation.addByPrefix('purify', 'purify0', 24, false);
+        animation.addByPrefix('miss', 'miss0', 24, false);
+        animation.addByPrefix('sleep', 'eepy-loop0', 24, true);
+        animation.addByPrefix('wingsgrow', 'wingsgrow0', 24, false);
+        animation.addByPrefix('notice', 'wakey0', 24, false);
+        animation.addByPrefix('fly', 'scream0', 24, true);
+        animation.addByPrefix('phew', 'phew0', 24, false);
+        animation.addByPrefix('concentrate1', 'concentrate10', 24, false);
+        animation.addByPrefix('concentrate2', 'concentrate20', 24, false);
+        animation.addByPrefix('haha', 'haha0', 24, false);
+        animation.addByPrefix('idle-soqpica', 'idle-foda', 24, false);
+        animation.addByPrefix('hit-1', 'hit-20', 24, false);
+        animation.addByPrefix('hit-2', 'hit-10', 24, false);
     }
 
     var floatTimer:Float = 0; //unintentional pun xD
@@ -38,17 +35,6 @@ class Player extends FlxSprite
     override public function update(elapsed:Float)
     {
         super.update(elapsed);
-        glow.x = this.x;
-        glow.y = this.y;
-        glow.animation.frameIndex = this.animation.frameIndex;
-        glow.visible = this.visible;
-        glow.offset.y = offset.y;
-        glow.scale.set(
-            1.2 + Math.sin(floatTimer * 2) * 0.05,
-            1.2 + Math.sin(floatTimer * 2) * 0.05
-        );
-        glow.alpha = 0.4 + Math.sin(floatTimer * 2) * 0.2;
-        glow.camera = this.camera;
 
         if(float)
         {

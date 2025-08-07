@@ -36,8 +36,9 @@ class Strums extends FlxGroup
         lCopy.alpha = rCopy.alpha = 0.0001;
         rGlow.alpha = lGlow.alpha = 0.0001;
 
-        leftStrum.x = 64; 
-        rightStrum.x = FlxG.width - rightStrum.width - 64;
+        final owo = 116;
+        leftStrum.x = owo; 
+        rightStrum.x = FlxG.width - rightStrum.width - owo;
 
         rightStrum.y = leftStrum.y = 64;
     }

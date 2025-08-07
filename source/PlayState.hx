@@ -6,9 +6,11 @@ import flixel.FlxSprite;
 import flixel.util.FlxColor;
 import flixel.text.FlxText;
 import flixel.FlxCamera;
+import flixel.graphics.frames.FlxAtlasFrames;
 import Note.HeldNote;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
+import flixel.addons.effects.FlxTrail;
 
 class PlayState extends FlxState
 {
@@ -37,7 +39,11 @@ class PlayState extends FlxState
 	];
 
 	public var combo:Int = 0;
-	public static var nextLevel = 'level-one';
+	public static var nextLevel = 'level-three';
+	var attack:FlxSprite;
+	var attackTrail:FlxTrail;
+	var subtitlesBG:FlxSprite;
+	var subtitles:FlxText;
 
 	override public function create()
 	{
@@ -58,45 +64,72 @@ class PlayState extends FlxState
 			//flixel.FlxG.sound.play(AssetPaths.metronome__ogg);
 			//trace('a');
 			var b = conductor.curBeat;
+			trace(b);
 
 			switch(nextLevel){
 				case 'level-one':
-				trace(b);
+					if(b >= 32 && b <= 64)
+						cHUD.zoom += 0.02;
+					if(b >= 100 && b <= 164)
+						cHUD.zoom += 0.02;
 
-				if(b >= 32 && b <= 64)
-					cHUD.zoom += 0.02;
-				if(b >= 100 && b <= 164)
-				{
-					cHUD.zoom += 0.02;
-				}
+					switch(b)
+					{
+						case 32:
+							FlxTween.tween(cGAME, {zoom: 1.2}, 2, {ease: FlxEase.circOut});
+							lumora.speed = 5;
+						case 64:
+							lumora.animation.play('sad', true);
+							FlxTween.tween(this, {bgScroll: 0}, 5, {ease: FlxEase.quadIn});
+							FlxTween.tween(cGAME, {zoom: 1.5, "scroll.y": cGAME.scroll.y + 32}, 1.6, {ease: FlxEase.circOut, startDelay: 0.2});
+							lumora.speed = 1;
+							lumora.amplitude = 3;
+							FlxTween.tween(lumora, {y: lumora.y + 16}, 1, {ease: FlxEase.quadInOut});
+						case 85: lumora.animation.play('unhappy');
+						case 96:
+							FlxTween.tween(lumora, {y: lumora.y - 16}, 1, {ease: FlxEase.backOut});
+						    lumora.animation.play('happy');
+						    lumora.speed = 4;
+							lumora.amplitude = 6;
+							FlxTween.tween(cGAME, {zoom: 1, "scroll.y": cGAME.scroll.y - 32}, 1.8, {ease: FlxEase.circIn, startDelay: 0.2});
+							FlxTween.tween(this, {bgScroll: 700}, 3, {ease: FlxEase.quadIn});
+						case 164: cHUD.visible = false;
+							FlxTween.tween(cGAME, {"scroll.y": -100}, 10, {ease: FlxEase.quadInOut});
+							FlxTween.tween(lumora, {y: 800}, 6, {ease: FlxEase.circIn, startDelay: 2});
+							lumora.animation.play('happier');
+						case 198: //fade to black lol
+					}
+				case 'level-three':
+					if(b >= 32)
+					{
+						lumora.animation.play((lumora.animation.curAnim.name == 'hit-2') ? 'hit-1' : 'hit-2', true);
+						cHUD.zoom += 0.045;
+					}
+					switch(b)
+					{
+						case 14: lumora.animation.curAnim.frameRate = 24;
+							lumora.scale.set(1.15, 0.85);
+							FlxTween.tween(lumora.scale, {x: 1, y: 1}, 0.4, {ease: FlxEase.backOut});
+							lumora.animation.play('notice');
+							for(strum in pStrum.members) 
+								if(Std.isOfType(strum, FlxSprite))
+									cast(strum, FlxSprite).alpha = 1;
 
-				switch(b)
-				{
-					case 32:
-						FlxTween.tween(cGAME, {zoom: 1.2}, 2, {ease: FlxEase.circOut});
-						lumora.speed = 5;
-
-					case 64:
-						lumora.animation.play('sad', true);
-						FlxTween.tween(this, {bgScroll: 0}, 5, {ease: FlxEase.quadIn});
-						FlxTween.tween(cGAME, {zoom: 1.5, "scroll.y": cGAME.scroll.y + 32}, 1.6, {ease: FlxEase.circOut, startDelay: 0.2});
-						lumora.speed = 1;
-						lumora.amplitude = 3;
-						FlxTween.tween(lumora, {y: lumora.y + 16}, 1, {ease: FlxEase.quadInOut});
-					case 85: lumora.animation.play('unhappy');
-					case 96:
-						FlxTween.tween(lumora, {y: lumora.y - 16}, 1, {ease: FlxEase.backOut});
-					    lumora.animation.play('happy');
-					    lumora.speed = 4;
-						lumora.amplitude = 6;
-						FlxTween.tween(cGAME, {zoom: 1, "scroll.y": cGAME.scroll.y - 32}, 1.8, {ease: FlxEase.circIn, startDelay: 0.2});
-						FlxTween.tween(this, {bgScroll: 700}, 3, {ease: FlxEase.quadIn});
-					case 164: cHUD.visible = false;
-					FlxTween.tween(cGAME, {"scroll.y": -100}, 10, {ease: FlxEase.quadInOut});
-					FlxTween.tween(lumora, {y: 800}, 6, {ease: FlxEase.circIn, startDelay: 2});
-					lumora.animation.play('happier');
-					case 198: //fade to black lol
-				}
+							FlxTween.tween(lumora, {y: lumora.y - 128}, conductor.crochet / 1000 * 2, {ease: FlxEase.backInOut});
+						case 16:
+							FlxTween.tween(cGAME, {zoom: 1.3}, 1, {ease: FlxEase.expoOut});
+							lumora.animation.play('concentrate1');
+						case 24:
+							lumora.animation.play('concentrate2');
+							FlxTween.tween(cGAME, {zoom: 1.6}, 1, {ease: FlxEase.expoOut});
+						case 28: FlxTween.tween(cGAME, {zoom: 1}, conductor.crochet / 1000 * 4, {ease: FlxEase.circIn}); lumora.animation.play('haha');
+						case 30: FlxTween.tween(lumora, {x: 64, y: lumora.y + 128}, conductor.crochet / 1000 * 2, {ease: FlxEase.backInOut});
+						case 31: lumora.animation.play('idle-soqpica');
+						case 32: FlxTween.tween(this, {bgScroll: 600}, conductor.crochet / 1000 * 2, {ease: FlxEase.circInOut});
+						    lumora.speed = 4;
+							lumora.amplitude = 11;
+							attack.visible = true;
+					}
 			}
 		});
 
@@ -126,6 +159,33 @@ class PlayState extends FlxState
 		pStrum = new Strums(chart.notes);
 		pStrum.camera = cHUD;
 		add(pStrum);
+
+		if(nextLevel == 'level-three') {
+			bgScroll = 0;
+		    lumora.speed = 3;
+			lumora.amplitude = 6;
+			lumora.animation.play('purify', true);
+			lumora.animation.curAnim.frameRate = 0;
+			lumora.y += 128;
+			for(strum in pStrum.members) if(Std.isOfType(strum, FlxSprite)) cast(strum, FlxSprite).alpha = 0;
+
+			attack = new FlxSprite();
+			attack.frames = FlxAtlasFrames.fromSparrow(AssetPaths.attack__png, AssetPaths.attack__xml);
+			attack.animation.addByPrefix('attack1', 'p10', 40, false);
+			attack.animation.addByPrefix('attack2', 'p20', 40, false);
+			attack.x = -300;
+			attack.scrollFactor.set(0, 0);
+
+			attackTrail = new FlxTrail(attack, null, 7, 3, 0.7, 0.3);
+			attackTrail.blend = ADD;
+			attackTrail.scrollFactor.set();
+			add(attackTrail);
+			attackTrail.visible = false;
+			add(attack);
+
+			attack.flipX = true;
+			attack.visible = false;
+		}
 
 		flixel.FlxG.sound.playMusic(getLevelSong());
 	}
@@ -216,7 +276,7 @@ class PlayState extends FlxState
 
 		// TODO: see if its pausing correctly (can't do it right nyaw since im in school!!)
 		if(FlxG.keys.justPressed.ESCAPE||FlxG.keys.justPressed.ENTER||FlxG.keys.justPressed.BACKSPACE)
-			openSubState(new Pause());
+			openSubState(new Pause(cHUD));
 	}
 
 	function checkHit(isLeft:Bool):Void
@@ -261,6 +321,7 @@ class PlayState extends FlxState
 	}
 
 	var statTwn:FlxTween;
+	var lumoratwn:FlxTween;
 	function hitNote(note:Note, judgement:String):Void
 	{
 		note.hitJudgement = judgement;
@@ -302,6 +363,22 @@ class PlayState extends FlxState
 
         if (note.length > 0)
 	        heldNotes.push(new HeldNote(note, conductor.songPosition));
+
+	    if(nextLevel == 'level-three')
+	    {
+	    	if(lumoratwn != null && lumoratwn.active) lumoratwn.cancel();
+	    	lumora.scale.set(1.15, 0.85);
+			lumoratwn = FlxTween.tween(lumora.scale, {x: 1, y: 1}, 0.4, {ease: FlxEase.backOut});
+
+			if(conductor.curBeat >= 32)
+			{
+				attack.animation.play('attack2', true);
+				attack.setPosition(lumora.x + 116, lumora.y - 64);
+				attack.visible = true;
+				attackTrail.visible = true;
+				attack.animation.curAnim.looped = false;
+			}
+	    }
 	}
 
 	var lshTwn:FlxTween;
@@ -334,6 +411,14 @@ class PlayState extends FlxState
 		statTwn = FlxTween.shake(stats, 0.06, 0.16, {onComplete:(_)->{
 			statTwn = FlxTween.tween(stats, {"scale.x": 1.2, "scale.y": 0.1, alpha: 0.0001}, 1, {ease:FlxEase.bounceOut , startDelay: 0.3});
 		}});
+
+		if(nextLevel == 'level-three')
+	    	lumora.animation.play('miss', true);
+	}
+
+	static public function manualReset()
+	{
+		combo = 0;
 	}
 
 	function leftKeyReleased():Bool
@@ -358,6 +443,7 @@ class PlayState extends FlxState
 	{
 		switch(nextLevel)
 		{
+			case 'level-three': return AssetPaths.level_three__ogg;
 			default: return AssetPaths.level_one__ogg;
 		}
 	}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="attack.png">
+	<SubTexture name="p10000" x="0" y="0" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p10001" x="0" y="0" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p10002" x="195" y="0" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p10003" x="195" y="0" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p10004" x="390" y="0" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p10005" x="390" y="0" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p10006" x="585" y="0" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p10007" x="585" y="0" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p10008" x="0" y="120" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p10009" x="0" y="120" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p10010" x="195" y="120" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p10011" x="195" y="120" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p10012" x="390" y="120" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p10013" x="390" y="120" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p10014" x="585" y="120" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p10015" x="585" y="120" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p10016" x="585" y="120" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p10017" x="585" y="120" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p20000" x="0" y="240" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p20001" x="0" y="240" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p20002" x="195" y="240" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p20003" x="195" y="240" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p20004" x="390" y="240" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p20005" x="390" y="240" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p20006" x="585" y="240" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p20007" x="585" y="240" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p20008" x="585" y="120" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+	<SubTexture name="p20009" x="585" y="120" width="195" height="120" frameX="-1" frameY="-4" frameWidth="196" frameHeight="128" />
+</TextureAtlas>

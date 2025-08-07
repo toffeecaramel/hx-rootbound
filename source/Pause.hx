@@ -8,17 +8,25 @@ import flixel.group.FlxGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+import flixel.FlxCamera;
 
 class Pause extends FlxSubState
 {
-	public var options:Array<String> = ["Resume", "Restart", "Exit"];
+	public var options:Array<String> = ["Resume", "Restart","Restart Campaign", "Exit"];
 	public var selectedIndex:Int = 0;
 	private var optionTexts:Array<FlxText> = [];
+	private var wasCamVisible:Bool = true;
 
-	public function new()
+	public function new(camera:FlxCamera)
 	{
 		super();
-        var bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		this.camera = camera;
+		wasCamVisible = camera.visible;
+
+		if(!wasCamVisible)
+			camera.visible = true;
+		FlxG.sound.music.pause();
+        var bg = new FlxSprite().makeGraphic(FlxG.width + 64, FlxG.height + 64, FlxColor.BLACK);
         bg.alpha = 0.5;
         add(bg);
 
@@ -53,8 +61,12 @@ class Pause extends FlxSubState
 		{
 			switch(options[selectedIndex].toLowerCase())
             {
-                case 'resume': close();
+                case 'resume':
+                	this.camera.visible = wasCamVisible;
+                	close();
+                	FlxG.sound.music.play();
                 case 'restart': FlxG.resetState(); close();
+                case 'restart campaign': PlayState.nextLevel = 'level-one'; FlxG.resetState(); close();
 
             }
 		}
