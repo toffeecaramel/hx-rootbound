@@ -28,6 +28,7 @@ class Pause extends FlxSubState
 		FlxG.sound.music.pause();
         var bg = new FlxSprite().makeGraphic(FlxG.width + 64, FlxG.height + 64, FlxColor.BLACK);
         bg.alpha = 0.5;
+        bg.screenCenter();
         add(bg);
 
 		var spacing = 40;

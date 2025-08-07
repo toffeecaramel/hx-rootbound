@@ -11,6 +11,7 @@ import Note.HeldNote;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
 import flixel.addons.effects.FlxTrail;
+import flixel.group.FlxGroup.FlxTypedGroup;
 
 class PlayState extends FlxState
 {
@@ -20,6 +21,7 @@ class PlayState extends FlxState
 	var stats:FlxText = new FlxText();
 	var bg:BG;
 	var lumora:Player = new Player();
+	var enemyGroup:FlxTypedGroup<Enemy> = new FlxTypedGroup<Enemy>();
 
 	var cHUD:FlxCamera = new FlxCamera();
 	var cGAME:FlxCamera = new FlxCamera();
@@ -100,10 +102,19 @@ class PlayState extends FlxState
 						case 198: //fade to black lol
 					}
 				case 'level-three':
-					if(b >= 32)
+					if(b>= 31 && b<=125) spawnEnemy();
+					if(b >= 32 && b<=129)
 					{
 						lumora.animation.play((lumora.animation.curAnim.name == 'hit-2') ? 'hit-1' : 'hit-2', true);
-						cHUD.zoom += 0.045;
+						cHUD.zoom += 0.047988;
+						attack.animation.play('attack2', true);
+						attack.setPosition(lumora.x + 116, lumora.y - 64);
+						attack.visible = true;
+						attackTrail.visible = true;
+						attack.animation.curAnim.looped = false;
+						for (enemy in enemyGroup.members)
+						    if (enemy != null && !enemy.hasBeenHit && enemy.x + enemy.width <= lumora.x + 132)
+						        enemy.hasBeenHit = true;
 					}
 					switch(b)
 					{
@@ -138,6 +149,8 @@ class PlayState extends FlxState
 		////////////////////////////////////////////
 		bg = new BG(chart.chartData.bg);
 		add(bg);
+		add(enemyGroup);
+
 		cGAME.scroll.x = bg.cameraSpawn.x;
 		cGAME.scroll.y = bg.cameraSpawn.y;
 
@@ -188,6 +201,14 @@ class PlayState extends FlxState
 		}
 
 		flixel.FlxG.sound.playMusic(getLevelSong());
+	}
+
+	function spawnEnemy()
+	{
+	    var enemy = new Enemy(820, lumora.y);
+	    enemy.scrollFactor.set(0, 0);
+	    enemy.offset.x = -200;
+	    enemyGroup.add(enemy);
 	}
 
 	var heldNotes:Array<HeldNote> = [];
@@ -371,13 +392,7 @@ class PlayState extends FlxState
 			lumoratwn = FlxTween.tween(lumora.scale, {x: 1, y: 1}, 0.4, {ease: FlxEase.backOut});
 
 			if(conductor.curBeat >= 32)
-			{
-				attack.animation.play('attack2', true);
-				attack.setPosition(lumora.x + 116, lumora.y - 64);
-				attack.visible = true;
-				attackTrail.visible = true;
-				attack.animation.curAnim.looped = false;
-			}
+			{}
 	    }
 	}
 
@@ -418,7 +433,7 @@ class PlayState extends FlxState
 
 	static public function manualReset()
 	{
-		combo = 0;
+		//combo = 0;
 	}
 
 	function leftKeyReleased():Bool
