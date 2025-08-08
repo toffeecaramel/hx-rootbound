@@ -1,5 +1,6 @@
 package;
 
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.FlxSprite;
@@ -66,7 +67,7 @@ class PlayState extends FlxState
 			//flixel.FlxG.sound.play(AssetPaths.metronome__ogg);
 			//trace('a');
 			var b = conductor.curBeat;
-			trace(b);
+			//trace(b);
 
 			switch(nextLevel){
 				case 'level-one':
@@ -205,9 +206,9 @@ class PlayState extends FlxState
 
 	function spawnEnemy()
 	{
-	    var enemy = new Enemy(820, lumora.y);
+	    var enemy = new Enemy(820, FlxG.height - 150);
 	    enemy.scrollFactor.set(0, 0);
-	    enemy.offset.x = -200;
+	    enemy.offset.x = -190;
 	    enemyGroup.add(enemy);
 	}
 
@@ -220,7 +221,7 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 		cGAME.scroll.x += elapsed * bgScroll;
-		cHUD.zoom = flixel.math.FlxMath.lerp(cHUD.zoom, 0.975, elapsed * 9);
+		cHUD.zoom = flixel.math.FlxMath.lerp(cHUD.zoom, 0.98, elapsed * 9);
 
 		for(note in pStrum.notes)
 		{
@@ -363,7 +364,7 @@ class PlayState extends FlxState
 		stats.color = colors.get(judgement);
 		stats.screenCenter(X);
 		stats.y += 3;
-		stats.alpha = 1;
+		stats.alpha = (subtitles.visible) ? 0.5 : 1;
 		stats.scale.set(0.9, 0.9);
 		stats.origin.y = stats.height;
 		statTwn = FlxTween.tween(stats, {"scale.x":1,'scale.y':1, y: pStrum.leftStrum.y}, 0.4, {ease:FlxEase.circOut,onComplete:(_)->{
@@ -419,7 +420,7 @@ class PlayState extends FlxState
 		stats.screenCenter(X);
 		stats.y = pStrum.leftStrum.y;
 		stats.scale.set(1, 1);
-		stats.alpha = 1;
+		stats.alpha = (subtitles.visible) ? 0.5 : 1;
 		stats.origin.y = stats.height;
 		glow.color = 0xFF8f2c3f;
 

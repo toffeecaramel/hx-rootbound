@@ -10,6 +10,6 @@ class Main extends Sprite
 		super();
 		flixel.FlxSprite.defaultAntialiasing = false;
 		flixel.FlxG.stage.quality = HIGH;
-		addChild(new FlxGame(0, 0, PlayState));
+		addChild(new FlxGame(0, 0, Init));
 	}
 }

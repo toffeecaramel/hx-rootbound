@@ -24,14 +24,14 @@ class Enemy extends FlxSprite
     {
         super.update(elapsed);
 
-        if (!hasBeenHit)
-            x -= speed * elapsed;
-        else {
+        x -= speed * elapsed;
+        if(hasBeenHit)
+        {
         	if(!ok)
         	{
         		ok = true;
         		animation.play('transform', true);
-        		flixel.tweens.FlxTween.tween(this, {y: -600, alpha: 0}, 1, {ease: flixel.tweens.FlxEase.circIn, onComplete: (_)-> this.kill()});
+        		//flixel.tweens.FlxTween.tween(this, {y: -600, alpha: 0}, 1, {ease: flixel.tweens.FlxEase.circIn, onComplete: (_)-> this.kill()});
         	}
         }
     }
