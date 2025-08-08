@@ -35,8 +35,10 @@ class Pause extends FlxSubState
 		for (i in 0...options.length)
 		{
 			var txt = new FlxText(0, 150 + i * spacing, FlxG.width, options[i]);
-			txt.setFormat(null, 32, FlxColor.WHITE, "center");
+			txt.setFormat(AssetPaths.Karma_Future__otf, 32, FlxColor.WHITE);
 			txt.screenCenter(X);
+			txt.textField.antiAliasType = ADVANCED;
+			txt.textField.sharpness = 400;
 			optionTexts.push(txt);
 			add(txt);
 		}
@@ -47,17 +49,21 @@ class Pause extends FlxSubState
 	{
 		super.update(elapsed);
 
-		if (FlxG.keys.justPressed.UP)
+		if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.W)
 		{
 			selectedIndex = (selectedIndex + options.length - 1) % options.length;
 			updateSelection();
 		}
-		else if (FlxG.keys.justPressed.DOWN)
+		else if (FlxG.keys.justPressed.DOWN || FlxG.keys.justPressed.S)
 		{
 			selectedIndex = (selectedIndex + 1) % options.length;
 			updateSelection();
 		}
-        else if(FlxG.keys.justPressed.ESCAPE || FlxG.keys.justPressed.BACKSPACE) close();
+        else if(FlxG.keys.justPressed.ESCAPE || FlxG.keys.justPressed.BACKSPACE){
+			this.camera.visible = wasCamVisible;
+			close();
+			FlxG.sound.music.play();
+		}
 		else if (FlxG.keys.justPressed.ENTER || FlxG.keys.justPressed.SPACE)
 		{
 			switch(options[selectedIndex].toLowerCase())
