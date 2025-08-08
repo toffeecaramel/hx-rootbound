@@ -102,7 +102,7 @@ class PlayState extends FlxState
 						case 198: //fade to black lol
 					}
 				case 'level-three':
-					if(b>= 31 && b<=125) spawnEnemy();
+					if(b>= 30 && b<=125) spawnEnemy();
 					if(b >= 32 && b<=129)
 					{
 						lumora.animation.play((lumora.animation.curAnim.name == 'hit-2') ? 'hit-1' : 'hit-2', true);
