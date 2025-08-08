@@ -45,6 +45,14 @@ class StartMenu extends FlxState
 			selectedIndex = (selectedIndex + 1) % menuItems.length;
 			updateSelection();
 		}
+        else if (FlxG.keys.justPressed.ENTER || FlxG.keys.justPressed.SPACE)
+        {
+            switch(menuItems[selectedIndex].toLowerCase())
+            {
+                case 'start!': PlayState.nextLevel = 'level-one';
+                FlxG.switchState(()-> new PlayState());
+            }
+        }
     }
 
     private function updateSelection():Void

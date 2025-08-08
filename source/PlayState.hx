@@ -364,7 +364,7 @@ class PlayState extends FlxState
 		stats.color = colors.get(judgement);
 		stats.screenCenter(X);
 		stats.y += 3;
-		stats.alpha = (subtitles.visible) ? 0.5 : 1;
+		stats.alpha = (subtitles != null && subtitles.visible) ? 0.5 : 1;
 		stats.scale.set(0.9, 0.9);
 		stats.origin.y = stats.height;
 		statTwn = FlxTween.tween(stats, {"scale.x":1,'scale.y':1, y: pStrum.leftStrum.y}, 0.4, {ease:FlxEase.circOut,onComplete:(_)->{
@@ -420,7 +420,7 @@ class PlayState extends FlxState
 		stats.screenCenter(X);
 		stats.y = pStrum.leftStrum.y;
 		stats.scale.set(1, 1);
-		stats.alpha = (subtitles.visible) ? 0.5 : 1;
+		stats.alpha = (subtitles != null && subtitles.visible) ? 0.5 : 1;
 		stats.origin.y = stats.height;
 		glow.color = 0xFF8f2c3f;
 

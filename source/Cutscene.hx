@@ -189,7 +189,7 @@ class Cutscene extends FlxState
 								FlxTween.tween(a, {alpha: 1}, 2, {
 									startDelay: 1, onComplete: (_) ->
 									{
-										//todo
+										FlxG.switchState(()->new PlayState());
 									}
 								});
 							});
