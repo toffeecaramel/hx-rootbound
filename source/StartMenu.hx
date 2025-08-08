@@ -50,7 +50,7 @@ class StartMenu extends FlxState
             switch(menuItems[selectedIndex].toLowerCase())
             {
                 case 'start!': PlayState.nextLevel = 'level-one';
-                FlxG.switchState(()-> new PlayState());
+                FlxG.switchState(()-> new Cutscene());
             }
         }
     }

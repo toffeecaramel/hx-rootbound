@@ -25,6 +25,7 @@ class Enemy extends FlxSprite
         super.update(elapsed);
 
         x -= speed * elapsed;
+        //this.visible = this.active = this.isOnScreen();
         if(hasBeenHit)
         {
         	if(!ok)

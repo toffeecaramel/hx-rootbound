@@ -34,7 +34,7 @@ class ChartEditor extends FlxState
     var previewNote:Note;
     var previewLane:Bool = true;
 
-    final level:String = 'level-three';
+    final level:String = 'level-four';
 
     override public function create():Void
     {
@@ -65,7 +65,7 @@ class ChartEditor extends FlxState
         holdLine.visible = false;
         add(holdLine);
 
-        FlxG.sound.playMusic(AssetPaths.level_three__ogg);
+        FlxG.sound.playMusic(AssetPaths.level_four__ogg);
     }
 
     override public function update(elapsed:Float):Void

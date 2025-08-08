@@ -2,6 +2,7 @@ package;
 
 import flixel.FlxGame;
 import openfl.display.Sprite;
+import flixel.FlxG;
 
 class Main extends Sprite
 {
@@ -9,7 +10,10 @@ class Main extends Sprite
 	{
 		super();
 		flixel.FlxSprite.defaultAntialiasing = false;
-		flixel.FlxG.stage.quality = HIGH;
-		addChild(new FlxGame(0, 0, StartMenu));
+		FlxG.stage.quality = HIGH;
+
+		addChild(new FlxGame(0, 0, StateYouSeeWhenPlayingForTheFirstTime));
+		FlxG.save.bind('Rootbound');
+		FlxG.save.flush();
 	}
 }

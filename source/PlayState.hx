@@ -26,6 +26,7 @@ class PlayState extends FlxState
 
 	var cHUD:FlxCamera = new FlxCamera();
 	var cGAME:FlxCamera = new FlxCamera();
+	var cFADE:FlxCamera = new FlxCamera();
 
 	var judgementList:Array<{name:String, window:Int}> = [
 		{name: "perfect", window: 30},
@@ -43,6 +44,9 @@ class PlayState extends FlxState
 
 	public var combo:Int = 0;
 	public static var nextLevel = 'level-three';
+	public static var levelList:Array<String> = ['level-one', 'level-three', 'level-four']; 
+	public static var curSong:Int = 0;
+
 	var attack:FlxSprite;
 	var attackTrail:FlxTrail;
 	var subtitlesBG:FlxSprite;
@@ -53,9 +57,11 @@ class PlayState extends FlxState
 		super.create();
 
 		cHUD.bgColor = 0x00000000;
+		cFADE.bgColor = 0x00000000;
 		cGAME.bgColor = 0x00000000;
 		FlxG.cameras.add(cGAME, true);
 		FlxG.cameras.add(cHUD, false);
+		FlxG.cameras.add(cFADE, false);
 
 		chart = new Chart(nextLevel);
 
@@ -201,7 +207,29 @@ class PlayState extends FlxState
 			attack.visible = false;
 		}
 
-		flixel.FlxG.sound.playMusic(getLevelSong());
+		var fadeToBlack = new FlxSprite().makeGraphic(FlxG.width + 32, FlxG.height + 32, FlxColor.BLACK);
+		fadeToBlack.screenCenter();
+		fadeToBlack.alpha = 1;
+		fadeToBlack.camera = cFADE;
+		add(fadeToBlack);
+		FlxTween.tween(fadeToBlack, {alpha: 0.0001}, 0.8);
+
+		flixel.FlxG.sound.playMusic(getLevelSong(), 1, false);
+		FlxG.sound.music.onComplete = ()->{
+			FlxTween.tween(fadeToBlack, {alpha: 1}, 0.8, {onComplete: (_)-> {
+				curSong++;
+				if(curSong < levelList.length)
+				{
+					nextLevel = levelList[curSong];
+					FlxG.resetState();
+				}
+				else
+				{
+					FlxG.switchState(()-> new StartMenu());
+					curSong = 0;
+				}
+			}});
+		};
 	}
 
 	function spawnEnemy()
@@ -460,6 +488,7 @@ class PlayState extends FlxState
 		switch(nextLevel)
 		{
 			case 'level-three': return AssetPaths.level_three__ogg;
+			case 'level-four': return AssetPaths.level_four__ogg;
 			default: return AssetPaths.level_one__ogg;
 		}
 	}

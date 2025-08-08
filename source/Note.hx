@@ -19,7 +19,7 @@ class Note extends FlxSprite
     public function new(x:Float, y:Float, time:Float, isLeft:Bool, length:Float)
     {
         this.isLeft = isLeft;
-        this.time = time;
+        this.time = time + flixel.FlxG.save.data.offset;
         this.length = length;
 
         super(x, y);

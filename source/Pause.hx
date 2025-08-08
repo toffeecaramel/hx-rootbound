@@ -35,7 +35,7 @@ class Pause extends FlxSubState
 		for (i in 0...options.length)
 		{
 			var txt = new FlxText(0, 150 + i * spacing, FlxG.width, options[i]);
-			txt.setFormat(AssetPaths.Karma_Future__otf, 32, FlxColor.WHITE);
+			txt.setFormat(AssetPaths.Karma_Future__otf, 32, FlxColor.WHITE, CENTER);
 			txt.screenCenter(X);
 			txt.textField.antiAliasType = ADVANCED;
 			txt.textField.sharpness = 400;
@@ -73,7 +73,7 @@ class Pause extends FlxSubState
                 	close();
                 	FlxG.sound.music.play();
                 case 'restart': FlxG.resetState(); close();
-                case 'restart campaign': PlayState.nextLevel = 'level-one'; FlxG.resetState(); close();
+                case 'restart campaign': PlayState.nextLevel = 'level-one'; FlxG.resetState(); close(); PlayState.curSong = 0;
 
             }
 		}
