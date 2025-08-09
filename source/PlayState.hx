@@ -73,7 +73,7 @@ class PlayState extends FlxState
 			//flixel.FlxG.sound.play(AssetPaths.metronome__ogg);
 			//trace('a');
 			var b = conductor.curBeat;
-			//trace(b);
+			trace(b);
 
 			switch(nextLevel){
 				case 'level-one':
@@ -148,6 +148,31 @@ class PlayState extends FlxState
 							lumora.amplitude = 11;
 							attack.visible = true;
 					}
+				case 'level-four':
+					switch(b)
+					{
+						case 32: sub('Ash in the sky, and the rivers all dry');
+						case 40: sub('The soil cracked where dreams would lie');
+						case 48: sub('But through the smoke, I saw a spark');
+						case 56: sub('A whisper growing in the dark');
+						case 64: sub('I felt the pull beneath my leaves');
+						case 72: sub('The earth was crying through the seeds');
+						case 80: sub('One by one, I plant the light');
+						case 88: sub('And bloom again what lost its fight');
+						case 96: sub('Every stem that broke, I mend!');
+						case 104: sub('Every end can bloom again');
+						case 112: sub('With roots so deep, I hear the call');
+						case 120: sub('A world reborn, I’ll give it all!');
+						case 128: sub("I'll fly! And never stop!");
+						case 139: sub("Through poisoned winds and crumbling rock");
+						case 147: sub("Lift the leaves, break the chain");
+						case 155: sub("Let the wild grow back AGAIN!");
+						case 160: sub("I'll fly! And never fall!");
+						case 171: sub("Till the world can hear nature’s call");
+						case 179: sub("This is the last seed I sow—");
+						case 187: sub("And I won’t let go!");
+						case 192: subtitles.visible = false;
+					}
 			}
 		});
 
@@ -207,12 +232,26 @@ class PlayState extends FlxState
 			attack.visible = false;
 		}
 
+		else if(nextLevel == 'level-four')
+		{
+			bgScroll = 0;
+		    lumora.speed = 2;
+			lumora.amplitude = 9;
+		}
+
 		var fadeToBlack = new FlxSprite().makeGraphic(FlxG.width + 32, FlxG.height + 32, FlxColor.BLACK);
 		fadeToBlack.screenCenter();
 		fadeToBlack.alpha = 1;
 		fadeToBlack.camera = cFADE;
 		add(fadeToBlack);
 		FlxTween.tween(fadeToBlack, {alpha: 0.0001}, 0.8);
+
+		subtitles = new FlxText(0, 16);
+		subtitles.visible = false;
+		subtitles.setFormat(null, 16, CENTER, FlxColor.LIME);
+		subtitles.text = '';
+		add(subtitles);
+		subtitles.camera = cHUD;
 
 		flixel.FlxG.sound.playMusic(getLevelSong(), 1, false);
 		FlxG.sound.music.onComplete = ()->{
@@ -458,6 +497,13 @@ class PlayState extends FlxState
 
 		if(nextLevel == 'level-three')
 	    	lumora.animation.play('miss', true);
+	}
+
+	function sub(t:String)
+	{
+		subtitles.visible = true;
+		subtitles.text = t;
+		subtitles.screenCenter(X);
 	}
 
 	static public function manualReset()
