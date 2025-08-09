@@ -102,7 +102,7 @@ class PlayState extends FlxState
 							lumora.amplitude = 6;
 							FlxTween.tween(cGAME, {zoom: 1, "scroll.y": cGAME.scroll.y - 32}, 1.8, {ease: FlxEase.circIn, startDelay: 0.2});
 							FlxTween.tween(this, {bgScroll: 700}, 3, {ease: FlxEase.quadIn});
-						case 164: cHUD.visible = false;
+						case 164: //cHUD.visible = false;
 							FlxTween.tween(cGAME, {"scroll.y": -100}, 10, {ease: FlxEase.quadInOut});
 							FlxTween.tween(lumora, {y: 800}, 6, {ease: FlxEase.circIn, startDelay: 2});
 							lumora.animation.play('happier');
