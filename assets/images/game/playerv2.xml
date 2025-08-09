@@ -64,4 +64,10 @@
 	<SubTexture name="hit-20001" x="440" y="192" width="88" height="48" frameX="-13" frameY="-1" frameWidth="107" frameHeight="54" />
 	<SubTexture name="hit-10000" x="0" y="240" width="88" height="48" frameX="-13" frameY="-1" frameWidth="107" frameHeight="54" />
 	<SubTexture name="hit-10001" x="0" y="240" width="88" height="48" frameX="-13" frameY="-1" frameWidth="107" frameHeight="54" />
+	<SubTexture name="fly-concentrate0000" x="88" y="240" width="88" height="48" frameX="-13" frameY="-1" frameWidth="107" frameHeight="54" />
+	<SubTexture name="fly-concentrate0001" x="88" y="240" width="88" height="48" frameX="-13" frameY="-1" frameWidth="107" frameHeight="54" />
+	<SubTexture name="fly-concentrate0002" x="176" y="240" width="88" height="48" frameX="-13" frameY="-1" frameWidth="107" frameHeight="54" />
+	<SubTexture name="fly-concentrate0003" x="176" y="240" width="88" height="48" frameX="-13" frameY="-1" frameWidth="107" frameHeight="54" />
+	<SubTexture name="fly-concentrate0004" x="264" y="240" width="88" height="48" frameX="-13" frameY="-1" frameWidth="107" frameHeight="54" />
+	<SubTexture name="fly-concentrate0005" x="264" y="240" width="88" height="48" frameX="-13" frameY="-1" frameWidth="107" frameHeight="54" />
 </TextureAtlas>

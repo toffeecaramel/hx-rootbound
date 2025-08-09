@@ -27,6 +27,7 @@ class Player extends FlxSprite
         animation.addByPrefix('idle-soqpica', 'idle-foda', 24, false);
         animation.addByPrefix('hit-1', 'hit-20', 24, false);
         animation.addByPrefix('hit-2', 'hit-10', 24, false);
+        animation.addByPrefix('fly-concentrate', 'fly-concentrate0', 24, true);
     }
 
     var floatTimer:Float = 0; //unintentional pun xD

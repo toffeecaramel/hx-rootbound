@@ -149,21 +149,49 @@ class PlayState extends FlxState
 							attack.visible = true;
 					}
 				case 'level-four':
+					if(b >= 128 && b< 192){
+						spawnParticles();
+						cHUD.zoom += 0.02;
+					}
 					switch(b)
 					{
 						case 32: sub('Ash in the sky, and the rivers all dry');
+							FlxTween.tween(cGAME, {zoom: 2}, 5, {ease: FlxEase.circOut});
+							lumora.animation.play('unhappy');
+
 						case 40: sub('The soil cracked where dreams would lie');
 						case 48: sub('But through the smoke, I saw a spark');
 						case 56: sub('A whisper growing in the dark');
 						case 64: sub('I felt the pull beneath my leaves');
+						FlxTween.tween(cGAME, {zoom: 1}, 5, {ease: FlxEase.circOut});
+						lumora.animation.play('happy');
+						bgScroll = 48;
 						case 72: sub('The earth was crying through the seeds');
 						case 80: sub('One by one, I plant the light');
 						case 88: sub('And bloom again what lost its fight');
+
+						case 92: bgScroll = 0;
+						lumora.animation.play('notice');
+						FlxTween.tween(cGAME, {zoom: 1.5}, 2, {ease: FlxEase.circOut});
+
 						case 96: sub('Every stem that broke, I mend!');
+						lumora.animation.play('concentrate1', true);
+
 						case 104: sub('Every end can bloom again');
 						case 112: sub('With roots so deep, I hear the call');
+						lumora.animation.play('concentrate2', true);
+
+						case 115, 119: FlxTween.tween(cGAME, {zoom: 1.3}, conductor.crochet / 1000 - 0.1, {ease: FlxEase.circOut});
+						case 116: FlxTween.tween(cGAME, {zoom: 1.5}, conductor.crochet / 1000 - 0.1, {ease: FlxEase.circOut});
 						case 120: sub('A world reborn, I’ll give it all!');
-						case 128: sub("I'll fly! And never stop!");
+						FlxTween.tween(cGAME, {zoom: 1.5}, conductor.crochet / 1000 - 0.1, {ease: FlxEase.circOut});
+						case 124: lumora.animation.play('haha', true);
+						FlxTween.tween(cGAME, {zoom: 1}, conductor.crochet / 1000 * 4, {ease: FlxEase.circOut});
+						case 127: FlxTween.tween(cGAME, {"scroll.y": -200}, 2, {ease: FlxEase.backInOut});
+						case 128: bgScroll = 1000;
+							lumora.animation.play('fly-concentrate', true);
+							sub("I'll fly! And never stop!");
+							bg.objects.get('bg').loadGraphic(AssetPaths.nightbg_normal__png);
 						case 139: sub("Through poisoned winds and crumbling rock");
 						case 147: sub("Lift the leaves, break the chain");
 						case 155: sub("Let the wild grow back AGAIN!");
@@ -172,6 +200,10 @@ class PlayState extends FlxState
 						case 179: sub("This is the last seed I sow—");
 						case 187: sub("And I won’t let go!");
 						case 192: subtitles.visible = false;
+							bg.objects.get('ground').loadGraphic(AssetPaths.ground_normal__png);
+							FlxTween.tween(lumora, {x: FlxG.width + lumora.width, angle: 10}, 3, {ease: FlxEase.backInOut});
+						case 224: FlxTween.tween(this, {bgScroll: 0}, 8, {ease: FlxEase.expoOut});
+						FlxTween.tween(cGAME.scroll, {y: bg.cameraSpawn.y}, 2, {ease: FlxEase.expoOut});
 					}
 			}
 		});
@@ -237,6 +269,7 @@ class PlayState extends FlxState
 			bgScroll = 0;
 		    lumora.speed = 2;
 			lumora.amplitude = 9;
+			lumora.animation.play('sad');
 		}
 
 		var fadeToBlack = new FlxSprite().makeGraphic(FlxG.width + 32, FlxG.height + 32, FlxColor.BLACK);
@@ -264,11 +297,49 @@ class PlayState extends FlxState
 				}
 				else
 				{
-					FlxG.switchState(()-> new StateYouSeeWhenPlayingForTheFirstTime());
-					curSong = 0;
+					//
+					var end = new FlxSprite().loadGraphic(AssetPaths.theend2__png);
+					end.alpha = 0.0001;
+					end.scale.set(0.8, 0.8);
+					end.screenCenter();
+					add(end);
+					end.camera = cFADE;
+					FlxTween.tween(end, {"scale.x": 1, "scale.y": 1, alpha: 1}, 3, {onComplete:(_)->{
+						curSong = 0;
+						FlxTween.tween(end, {alpha: 0}, 3, {startDelay: 8, onComplete: (_)->{
+							FlxG.switchState(()-> new StateYouSeeWhenPlayingForTheFirstTime());
+						}});
+					}});
+					
+					FlxG.save.data.finished = true;
+					FlxG.save.flush();
 				}
 			}});
 		};
+	}
+
+	function spawnParticles()
+	{
+		var thisParticles:Array<FlxSprite> = [];
+		var sprites = [AssetPaths.diamondone__png, AssetPaths.diamondtwo__png, AssetPaths.diamondthree__png];
+
+		for (i in 0...FlxG.random.int(1, 3))
+		{
+			var a = new FlxSprite().loadGraphic(sprites[i]);
+			a.acceleration.y = FlxG.random.int(280, 390);
+			a.velocity.x = -FlxG.random.int(150, 230);
+			a.velocity.y = -FlxG.random.int(140, 160);
+			a.scrollFactor.set(0, 0);
+			a.angularVelocity = FlxG.random.int(50, 100);
+			a.alpha = 0.0001;
+			a.blend = ADD;
+			a.angle = FlxG.random.int(0, 360);
+			a.screenCenter();
+			a.x += FlxG.random.int(-80, 10);
+			add(a);
+			FlxTween.tween(a, {alpha: FlxG.random.float(0.2, 0.8)}, 0.2);
+			new flixel.util.FlxTimer().start(4, (_)->a.destroy());
+		}
 	}
 
 	function spawnEnemy()

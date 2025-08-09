@@ -18,7 +18,7 @@ class Main extends Sprite
 		FlxG.save.flush();
 
 		// for debug purposes
-		PlayState.nextLevel = 'level-four';
-		FlxG.switchState(()-> new PlayState());
+		//PlayState.nextLevel = 'level-four';
+		//FlxG.switchState(()-> new PlayState());
 	}
 }

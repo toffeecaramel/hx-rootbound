@@ -55,7 +55,7 @@ class StartMenu extends FlxState
             text.updateTxt();
         }
 
-        updateSelection();
+        updateSelection(false);
         FlxG.camera.scroll.y = 1000;
         flixel.tweens.FlxTween.tween(FlxG.camera.scroll, {y: 0}, 0.58, {ease: flixel.tweens.FlxEase.expoOut});
         diamondsOh();
@@ -82,8 +82,10 @@ class StartMenu extends FlxState
                 switch(menuItems[selectedIndex].toLowerCase())
                 {
                     case 'start!': PlayState.nextLevel = 'level-one';
+                    PlayState.curSong = 0;
                         FlxG.sound.music.stop();
-                        //TODO: sfx
+                        //done :)
+                        FlxG.sound.play(AssetPaths.menuconfirm__ogg);
                         canPress = false;
                         texts[selectedIndex].flicker();
                         new FlxTimer().start(0.6, (_)->{
@@ -98,6 +100,8 @@ class StartMenu extends FlxState
 
                     case 'change offset': openSubState(new ChangeOffset());
 
+                    case 'credits': openSubState(new Credits());
+
                     #if !html5
                     case 'exit': Sys.exit(1);
                     #end
@@ -109,10 +113,12 @@ class StartMenu extends FlxState
         FlxG.camera.zoom = FlxMath.lerp(FlxG.camera.zoom, 1, elapsed * 14);
     }
 
-    private function updateSelection():Void
+    private function updateSelection(a:Bool = true):Void
 	{
 		for(i in 0...texts.length)
             texts[i].selected = (i == selectedIndex);
+
+        if(a) FlxG.sound.play(AssetPaths.menu_scroll__ogg, 0.68);
 	}
 
     function diamondsOh()

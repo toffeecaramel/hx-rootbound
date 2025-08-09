@@ -23,6 +23,7 @@ class Cutscene extends FlxState
 
 	var cutsceneIdx:Int = 0;
 	var canPress:Bool = false;
+	var allowedSkip:Bool = false;
 	var a:FlxSprite;
 	override public function create()
 	{
@@ -61,8 +62,19 @@ class Cutscene extends FlxState
 
 		FlxG.sound.playMusic(AssetPaths.cutscene__ogg, 0);
 		FlxG.sound.music.fadeIn(3, 0, 1);
-	}
 
+		skipTxt = new FlxText();
+		skipTxt.setFormat(null, 32, LEFT);
+		skipTxt.text = 'You can press ESC or BACKSPACE to skip.';
+		skipTxt.alpha = 0.4;
+		skipTxt.visible = false;
+		skipTxt.camera = cHUD;
+		add(skipTxt);
+
+		if(FlxG.save.data.finished)
+			allowedSkip = true;
+	}
+	var skipTxt:FlxText;
 	override public function update(elapsed)
 	{
 		super.update(elapsed);
@@ -71,14 +83,22 @@ class Cutscene extends FlxState
 		arr.x = text.x + text.width + 8;
 		arr.y = text.y + text.height / 2 - arr.height / 2;
 
-		if ((FlxG.keys.justPressed.Z || FlxG.keys.justPressed.ENTER || FlxG.keys.justPressed.SPACE || FlxG.keys.justPressed.BACKSPACE
-			|| FlxG.keys.justPressed.ESCAPE)
+		if ((FlxG.keys.justPressed.Z || FlxG.keys.justPressed.ENTER || FlxG.keys.justPressed.SPACE)
 			&& canPress)
 		{
 			FlxG.sound.play(AssetPaths.enter__ogg, 0.7);
 			cutsceneIdx++;
 			proceed();
 		}
+
+		if((FlxG.keys.justPressed.BACKSPACE || FlxG.keys.justPressed.ESCAPE) && allowedSkip)
+		{
+			allowedSkip = false;
+			canPress = false;
+			FlxTween.tween(a, {alpha: 1}, 2, {startDelay: 1, onComplete: (_) -> FlxG.switchState(()->new PlayState())});
+		}
+
+		skipTxt.visible = allowedSkip;
 	}
 
 	var player:Player;
