@@ -225,7 +225,7 @@ class PlayState extends FlxState
 				}
 				else
 				{
-					FlxG.switchState(()-> new StartMenu());
+					FlxG.switchState(()-> new StateYouSeeWhenPlayingForTheFirstTime());
 					curSong = 0;
 				}
 			}});

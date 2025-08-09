@@ -12,10 +12,11 @@ import flixel.FlxCamera;
 
 class Pause extends FlxSubState
 {
-	public var options:Array<String> = ["Resume", "Restart","Restart Campaign", "Exit"];
+	public var options:Array<String> = ["Resume", "Restart","Restart Campaign", "Change Offset", "Exit"];
 	public var selectedIndex:Int = 0;
 	private var optionTexts:Array<FlxText> = [];
 	private var wasCamVisible:Bool = true;
+	private var applyChanges:FlxText;
 
 	public function new(camera:FlxCamera)
 	{
@@ -42,6 +43,15 @@ class Pause extends FlxSubState
 			optionTexts.push(txt);
 			add(txt);
 		}
+
+		applyChanges = new FlxText();
+		applyChanges.setFormat(null, 16, CENTER);
+		applyChanges.text = 'Restart to apply changes.';
+		applyChanges.screenCenter(X);
+		add(applyChanges);
+		applyChanges.y = FlxG.height - applyChanges.height - 16;
+		applyChanges.alpha = 0.8;
+		applyChanges.visible = false;
 		updateSelection();
 	}
 
@@ -74,6 +84,8 @@ class Pause extends FlxSubState
                 	FlxG.sound.music.play();
                 case 'restart': FlxG.resetState(); close();
                 case 'restart campaign': PlayState.nextLevel = 'level-one'; FlxG.resetState(); close(); PlayState.curSong = 0;
+                case 'change offset': openSubState(new ChangeOffset(this.camera)); optionTexts[1].color = FlxColor.RED; optionTexts[1].ID = 99; applyChanges.visible = true;
+                case 'exit': FlxG.switchState(()-> new StateYouSeeWhenPlayingForTheFirstTime());
 
             }
 		}
@@ -83,7 +95,7 @@ class Pause extends FlxSubState
 	{
 		for (i in 0...optionTexts.length)
 		{
-			optionTexts[i].color = (i == selectedIndex) ? 0xFF3bf6b3 : FlxColor.WHITE;
+			optionTexts[i].color = (i == selectedIndex && optionTexts[i].ID != 99) ? 0xFF3bf6b3 : (optionTexts[i].ID == 99 || (i == selectedIndex && optionTexts[i].ID == 99)) ? FlxColor.RED : FlxColor.WHITE;
 			optionTexts[i].scale.set((i == selectedIndex) ? 1.2 : 1.0, (i == selectedIndex) ? 1.2 : 1.0);
 		}
 	}

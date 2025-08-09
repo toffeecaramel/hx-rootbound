@@ -26,6 +26,7 @@ class StateYouSeeWhenPlayingForTheFirstTime extends FlxState
 			{
 				allowPress = true;
 				FlxG.camera.zoom += 0.02;
+				subtitles.text = '(Press on the BEAT!)\nOffset: $averageOffset';
 			}
 			else
 				allowPress = false;
@@ -33,8 +34,8 @@ class StateYouSeeWhenPlayingForTheFirstTime extends FlxState
 			switch(conductor.curBeat)
 			{
 				case 8: subtitles.text = 'Before we can continue,\nwe must setup your OFFSET.';
-				case 16: subtitles.text = 'Dont worry! ^^\nAll you gotta do is press on the beat!';
-				case 24: subtitles.text = 'Got it?';
+				case 16: subtitles.text = 'Dont worry! ^^\nAll you gotta do is press ANY key on the beat!';
+				case 24: subtitles.text = 'Ready?';
 				case 28: subtitles.text = '3';
 				case 29: subtitles.text = '2';
 				case 30: subtitles.text = '1';
@@ -80,8 +81,8 @@ class StateYouSeeWhenPlayingForTheFirstTime extends FlxState
 		squareGraphic.alpha = flixel.math.FlxMath.lerp(squareGraphic.alpha, 0.0001, elapsed * 5);
 		FlxG.camera.zoom = flixel.math.FlxMath.lerp(FlxG.camera.zoom, 1, elapsed * 12);
 		subtitles.alpha = bg.alpha - 0.3;
-		subtitles.x = flixel.math.FlxMath.lerp(subtitles.x, FlxG.width / 2 - subtitles.width / 2, elapsed * 8);
-		subtitles.y = flixel.math.FlxMath.lerp(subtitles.y, FlxG.height / 2 - subtitles.height / 2, elapsed * 8);
+		subtitles.x = flixel.math.FlxMath.lerp(subtitles.x, FlxG.width / 2 - subtitles.width / 2, elapsed * 32);
+		subtitles.y = flixel.math.FlxMath.lerp(subtitles.y, FlxG.height / 2 - subtitles.height / 2, elapsed * 32);
 	}
 
 	function calculateOffset():Void

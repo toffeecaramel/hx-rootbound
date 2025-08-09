@@ -12,7 +12,7 @@ class StartMenu extends FlxState
 {
     // owo self note: settings might not be added on time, so I'll stick out with freeplay.
     // MAYBE NOT EVEN FREEPLAY LMAO IM CRYING :sob:
-    final menuItems:Array<String> = ['Start!', 'Credits'#if !html5,'Exit'#end];
+    final menuItems:Array<String> = ['Start!', 'Credits', 'Change Offset'#if !html5,'Exit'#end];
     var texts:Array<MenuButton> = [];
     var ohDiamonds:Array<FlxSprite> = [];
     var diamondFollower:FlxSprite;
@@ -36,7 +36,6 @@ class StartMenu extends FlxState
         conductor = new Conductor(150);
         conductor.onBeatHit.add(()->{
             FlxG.camera.zoom += 0.018;
-            diamondsOh();
         });
         add(conductor);
 
@@ -59,6 +58,7 @@ class StartMenu extends FlxState
         updateSelection();
         FlxG.camera.scroll.y = 1000;
         flixel.tweens.FlxTween.tween(FlxG.camera.scroll, {y: 0}, 0.58, {ease: flixel.tweens.FlxEase.expoOut});
+        diamondsOh();
     }
 
     override public function update(elapsed:Float)
@@ -91,8 +91,12 @@ class StartMenu extends FlxState
                             s.alpha = 0.0001;
                             add(s);
                             s.screenCenter();
+                            for(d in ohDiamonds)
+                                flixel.tweens.FlxTween.tween(d, {alpha: 0}, 0.8);
                             flixel.tweens.FlxTween.tween(s, {alpha: 1}, 0.9, {onComplete: (_)->FlxG.switchState(()-> new Cutscene())});
                         });
+
+                    case 'change offset': openSubState(new ChangeOffset());
 
                     #if !html5
                     case 'exit': Sys.exit(1);
@@ -121,7 +125,13 @@ class StartMenu extends FlxState
         d.blend = ADD;
         d.y = FlxG.height + d.height;
         d.x = FlxG.random.int(0, Std.int(FlxG.width - d.width));
-        flixel.tweens.FlxTween.tween(d, {angle: d.angle + FlxG.random.int(300, 400), y: -200}, FlxG.random.float(15, 20), {onComplete: (_)->d.destroy()});
+        ohDiamonds.push(d);
+        flixel.tweens.FlxTween.tween(d, {angle: d.angle + FlxG.random.int(300, 400), y: -200}, FlxG.random.float(15, 20), {onComplete: (_)->{
+            ohDiamonds.remove(d);
+            d.destroy();
+        }});
+
+        new FlxTimer().start(0.5, (_) -> diamondsOh()); //no more on beat otherwise they stop cause my conductor sucks
     }
 }
 
